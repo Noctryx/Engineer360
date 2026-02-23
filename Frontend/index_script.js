@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!branch) return;
 
     try {
-      const response = await fetch("https://engineer360.onrender.com/roles");
+      const response = await fetch("https://engineer360.onrender.com/branches");
       const data = await response.json();
 
       let roles = data[branch] || [];
