@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Engineer360 | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="dashboard_style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <div class="container">
+      <h1>Engineer360 Report</h1>
+      <div id="userInfo"></div>
+
+      <div class="card">
+        <h2>Skill Match</h2>
+        <div id="matchPercent" class="big-number"></div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div id="missingSkills"></div>
+        <div class="chart-container">
+          <canvas id="skillChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Burnout Risk</h2>
+        <div id="burnoutLevel" class="big-number"></div>
+        <div id="burnoutAdvice"></div>
+      </div>
+
+      <div class="card">
+        <h2>Smart Recommendation</h2>
+        <div id="smartAdvice"></div>
+        <button id="restartBtn">Start Again</button>
+      </div>
+    </div>
+
+    <script src="dashboard_script.js" defer></script>
+  </body>
+</html>

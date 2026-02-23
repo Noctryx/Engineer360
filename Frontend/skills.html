@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Engineer360 | Skill Assessment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="skills_style.css" />
+  </head>
+
+  <body>
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <div class="container">
+      <h1>Engineer360</h1>
+      <p class="subtitle">Select your current skills & daily metrics</p>
+
+      <div class="skills-list">
+        <div class="section-title">Your Skills</div>
+        <div id="skillsContainer"></div>
+      </div>
+
+      <div class="metrics">
+        <div class="section-title">Daily Metrics</div>
+
+        <label>Sleep Hours</label>
+        <input type="number" id="sleep" min="0" max="12" required />
+
+        <label>Stress Level (1-10)</label>
+        <input type="number" id="stress" min="1" max="10" required />
+
+        <label>Focus Score (1-10)</label>
+        <input type="number" id="focus" min="1" max="10" required />
+
+        <label>Study Hours</label>
+        <input type="number" id="study" min="0" max="12" required />
+      </div>
+
+      <button id="generateBtn">Generate Report</button>
+    </div>
+
+    <script src="skills_script.js" defer></script>
+  </body>
+</html>
