@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadBranches() {
     try {
-      const response = await fetch("http://127.0.0.1:8000/branches");
+      const response = await fetch("https://engineer360.onrender.com/branches");
       const data = await response.json();
 
       Object.keys(data).forEach((branch) => {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!branch) return;
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/branches");
+      const response = await fetch("https://engineer360.onrender.com/branches");
       const data = await response.json();
 
       let roles = data[branch] || [];
