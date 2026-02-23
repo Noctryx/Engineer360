@@ -14,7 +14,7 @@ async function loadSkills() {
       return;
     }
 
-    const response = await fetch("https://engineer360.onrender.com/skills");
+    const response = await fetch("https://engineer360.onrender.com/roles");
     const data = await response.json();
 
     const skills = Object.keys(data[role] || {});
