@@ -3,13 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 
-from skill_data import ROLES, BRANCHES
+from skill_data import BRANCHES,ROLES
 from skill_engine import analyze_skill_gap
 from burnout_engine import analyze_burnout
 from recommendation_engine import generate_recommendation
 
 from database import engine, SessionLocal
 from models import Base, StudentRecord
+import json
 
 # Create DB tables
 Base.metadata.create_all(bind=engine)
@@ -44,13 +45,16 @@ def home():
 
 @app.get("/branches")
 def get_branches():
-    return BRANCHES
+    return {"branches": list(BRANCHES.keys())}
 
+@app.get("/roles/{branch}")
+def get_roles(branch: str):
+    return {"roles": BRANCHES.get(branch, [])}
 
-@app.get("/roles")
-def get_roles():
-    return ROLES
-
+@app.get("/skills/{role}")
+def get_skills(role: str):
+    skills = ROLES.get(role, {})
+    return {"skills": skills}
 
 @app.post("/analyze")
 def analyze(user: UserInput):
@@ -85,7 +89,7 @@ def analyze(user: UserInput):
             match_percentage=skill_result["match_percentage"],
             burnout_score=burnout_result["burnout_score"],
             burnout_risk=burnout_result["burnout_risk"],
-            recommendation=recommendation
+            recommendation=json.dumps(recommendation)
         )
 
         db.add(record)
@@ -96,7 +100,8 @@ def analyze(user: UserInput):
     return {
         "skill_analysis": skill_result,
         "burnout_analysis": burnout_result,
-        "final_recommendation": recommendation
+        "final_recommendation": recommendation["message"],
+        "learning_resources": recommendation["resources"]
     }
 
 @app.get("/records")

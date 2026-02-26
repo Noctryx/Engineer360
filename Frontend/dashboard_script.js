@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function fetchAnalysis() {
   try {
-    const response = await fetch("https://engineer360.onrender.com/analyze", {
+    const response = await fetch("http://127.0.0.1:8000/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -60,10 +60,7 @@ function renderDashboard(data) {
   progressBar.style.background =
     matchPercent >= 75 ? "#22c55e" : matchPercent >= 40 ? "#facc15" : "#ef4444";
 
-  document.getElementById("missingSkills").innerHTML =
-    `<strong>Priority Skills:</strong> ${
-      skillData.priority_skills?.join(", ") || "None 🎉"
-    }`;
+  renderMissingSkills(skillData, data.learning_resources || {});
 
   const burnoutEl = document.getElementById("burnoutLevel");
   burnoutEl.innerText = `${burnoutData.burnout_risk} (${burnoutData.burnout_score}%)`;
@@ -78,6 +75,66 @@ function renderDashboard(data) {
   document.getElementById("smartAdvice").innerText = data.final_recommendation;
 
   renderChart(matchPercent);
+}
+
+function renderMissingSkills(skillData, resources) {
+  const container = document.getElementById("missingSkills");
+
+  if (!skillData.missing_skills || skillData.missing_skills.length === 0) {
+    container.innerHTML = "<strong>Excellent! No missing skills 🎉</strong>";
+    return;
+  }
+
+  const allSkills = skillData.missing_skills;
+  const maxInitial = 6;
+  let expanded = false;
+
+  function buildList() {
+    const skillsToShow = expanded ? allSkills : allSkills.slice(0, maxInitial);
+
+    let html = "<strong>Missing Skills:</strong><ul>";
+
+    skillsToShow.forEach((item) => {
+      const skillName = item.skill || item;
+      const readable = skillName.replaceAll("_", " ");
+      const link = resources[skillName] || "#";
+
+      html += `
+        <li>
+          ${readable}
+          <br>
+          <a href="${link}"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="learn-link">
+             ▶ Learn Now
+          </a>
+        </li>
+      `;
+    });
+
+    html += "</ul>";
+
+    if (allSkills.length > maxInitial) {
+      html += `
+        <button id="toggleSkillsBtn" class="view-more-btn">
+          ${expanded ? "View Less" : "View More"}
+        </button>
+      `;
+    }
+
+    container.innerHTML = html;
+
+    const toggleBtn = document.getElementById("toggleSkillsBtn");
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        expanded = !expanded;
+        buildList();
+      });
+    }
+  }
+
+  buildList();
 }
 
 function renderChart(matchPercent) {

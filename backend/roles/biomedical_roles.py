@@ -1,0 +1,148 @@
+BIOMEDICAL_ROLES = {
+
+    "BIOMEDICAL_ENGINEER": {
+        "BIOMECHANICS": 5,
+        "BIOMATERIALS": 5,
+        "BASIC_ELECTRONICS": 4,
+        "MEDICAL_DEVICE_DESIGN": 5,
+        "SOLIDWORKS": 4,
+        "AUTOCAD": 3,
+        "MATLAB": 4,
+        "SIMULINK": 3,
+        "SENSORS": 4,
+        "MEDICAL_IMAGING": 4,
+        "PROBLEM_SOLVING": 3,
+        "TECHNICAL_DOCUMENTATION": 3,
+        "TEAM_COLLABORATION": 2
+    },
+
+    "BIOMEDICAL_EQUIPMENT_TECHNICIAN": {
+        "HOSPITAL_EQUIPMENT_KNOWLEDGE": 5,
+        "MEDICAL_EQUIPMENT_MAINTENANCE": 5,
+        "ECG_SYSTEMS": 4,
+        "VENTILATOR_SYSTEMS": 4,
+        "INFUSION_PUMPS": 4,
+        "ELECTRONICS": 4,
+        "INSTRUMENTATION": 4,
+        "CALIBRATION": 4,
+        "SAFETY_STANDARDS": 4,
+        "TROUBLESHOOTING": 5,
+        "ATTENTION_TO_DETAIL": 3,
+        "TIME_MANAGEMENT": 3,
+        "COMMUNICATION": 3
+    },
+
+    "MEDICAL_DEVICE_DESIGN_ENGINEER": {
+        "PRODUCT_DEVELOPMENT_LIFECYCLE": 5,
+        "DESIGN_THINKING": 4,
+        "CAD_MODELING": 5,
+        "SOLIDWORKS": 4,
+        "PROTOTYPING": 4,
+        "MATERIAL_SELECTION": 4,
+        "MANUFACTURING_PROCESSES": 4,
+        "RISK_ANALYSIS": 4,
+        "TESTING_METHODS": 4,
+        "CREATIVITY": 3,
+        "TEAMWORK": 3,
+        "PRESENTATION_SKILLS": 3
+    },
+
+    "BIOMECHANICS_ENGINEER": {
+        "HUMAN_ANATOMY": 5,
+        "HUMAN_PHYSIOLOGY": 5,
+        "MECHANICS": 5,
+        "MOTION_ANALYSIS": 4,
+        "MATLAB": 4,
+        "PYTHON": 4,
+        "DATA_ANALYSIS": 4,
+        "SIMULATION": 4,
+        "FEA": 4,
+        "CRITICAL_THINKING": 4,
+        "RESEARCH_SKILLS": 3,
+        "REPORT_WRITING": 3
+    },
+
+    "QA_REGULATORY_AFFAIRS_SPECIALIST": {
+        "QUALITY_SYSTEMS": 5,
+        "ISO_13485": 5,
+        "GMP": 4,
+        "FDA_REGULATIONS": 4,
+        "CE_REGULATIONS": 4,
+        "DOCUMENTATION": 4,
+        "AUDIT_PREPARATION": 4,
+        "FMEA": 4,
+        "COMPLIANCE_KNOWLEDGE": 5,
+        "ATTENTION_TO_DETAIL": 4,
+        "ORGANIZATION": 3,
+        "WRITTEN_COMMUNICATION": 3
+    },
+
+    "BIOMEDICAL_RESEARCH_ASSISTANT": {
+        "SCIENTIFIC_RESEARCH_METHODS": 5,
+        "EXPERIMENTAL_DESIGN": 5,
+        "LAB_TECHNIQUES": 4,
+        "DATA_COLLECTION": 4,
+        "DATA_ANALYSIS": 4,
+        "MATLAB": 4,
+        "PYTHON": 4,
+        "EXCEL": 3,
+        "LITERATURE_REVIEW": 4,
+        "PUBMED": 3,
+        "ACADEMIC_WRITING": 3,
+        "CURIOSITY": 3
+    },
+
+    "BIOMEDICAL_DATA_ANALYST": {
+        "STATISTICS": 5,
+        "DATA_INTERPRETATION": 5,
+        "BIOLOGICAL_DATA_ANALYSIS": 4,
+        "PYTHON": 5,
+        "R_PROGRAMMING": 4,
+        "SQL": 4,
+        "EXCEL": 3,
+        "MACHINE_LEARNING": 4,
+        "DATA_VISUALIZATION": 4,
+        "LOGICAL_REASONING": 4,
+        "COMMUNICATION": 3
+    },
+
+    "CLINICAL_ENGINEER": {
+        "ENGINEERING_HEALTHCARE_INTEGRATION": 5,
+        "SYSTEMS_THINKING": 5,
+        "MEDICAL_DEVICE_EVALUATION": 5,
+        "HOSPITAL_IT_SYSTEMS": 4,
+        "RISK_ASSESSMENT": 4,
+        "SAFETY_ANALYSIS": 4,
+        "EQUIPMENT_LIFECYCLE_MANAGEMENT": 4,
+        "LEADERSHIP": 3,
+        "DECISION_MAKING": 3,
+        "STAKEHOLDER_COMMUNICATION": 3
+    },
+
+    "REHABILITATION_ENGINEER": {
+        "ASSISTIVE_TECHNOLOGY": 5,
+        "PATIENT_CENTERED_DESIGN": 5,
+        "BIOMECHANICS": 4,
+        "ERGONOMICS": 4,
+        "PROSTHETICS": 4,
+        "ORTHOTICS": 4,
+        "WEARABLE_SENSORS": 4,
+        "RAPID_PROTOTYPING": 4,
+        "EMPATHY": 3,
+        "INTERDISCIPLINARY_TEAMWORK": 3
+    },
+
+    "MEDICAL_PRODUCT_APPLICATION_SPECIALIST": {
+        "PRODUCT_KNOWLEDGE": 5,
+        "CLINICAL_WORKFLOWS": 4,
+        "MEDICAL_DEVICE_OPERATION": 5,
+        "DEMONSTRATION_TECHNIQUES": 4,
+        "TRAINING_SKILLS": 4,
+        "DATA_INTERPRETATION": 4,
+        "CRM_TOOLS": 3,
+        "PUBLIC_SPEAKING": 4,
+        "CUSTOMER_INTERACTION": 4,
+        "NEGOTIATION_SKILLS": 3
+    }
+
+}

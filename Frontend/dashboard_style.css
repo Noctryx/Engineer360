@@ -67,6 +67,17 @@ body {
   transition: transform 0.3s ease;
 }
 
+.learn-link {
+  color: #8b5cf6;
+  font-size: 13px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.learn-link:hover {
+  text-decoration: underline;
+}
+
 .container:hover {
   transform: translateY(-5px);
 }
@@ -129,6 +140,10 @@ h1 {
   color: #ef4444;
 }
 
+.scroll-box {
+  max-height: 300px;
+  overflow-y: auto;
+}
 /* Recommendation */
 .recommendation-text {
   margin-top: 10px;

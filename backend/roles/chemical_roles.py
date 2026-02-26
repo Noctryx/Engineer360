@@ -1,0 +1,133 @@
+CHEMICAL_ROLES = {
+
+    "PROCESS_ENGINEER": {
+        "CHEMICAL_REACTION_ENGINEERING": 5,
+        "MASS_BALANCE": 5,
+        "ENERGY_BALANCE": 5,
+        "THERMODYNAMICS": 5,
+        "HEAT_TRANSFER": 4,
+        "PROCESS_OPTIMIZATION": 4,
+        "ASPEN_PLUS": 4,
+        "ASPEN_HYSYS": 4,
+        "MATLAB": 3,
+        "ADVANCED_EXCEL": 3,
+        "ANALYTICAL_THINKING": 3,
+        "PROBLEM_SOLVING": 3,
+        "TEAM_COLLABORATION": 2
+    },
+
+    "CHEMICAL_PLANT_OPERATOR": {
+        "UNIT_OPERATIONS": 5,
+        "PROCESS_MONITORING": 5,
+        "PROCESS_CONTROL": 4,
+        "REACTOR_OPERATION": 4,
+        "DISTILLATION_COLUMN_OPERATION": 4,
+        "DCS_SYSTEMS": 4,
+        "SCADA_SYSTEMS": 4,
+        "ATTENTION_TO_DETAIL": 3,
+        "DISCIPLINE": 3,
+        "SHIFT_OPERATIONS": 3
+    },
+
+    "QUALITY_CONTROL_ENGINEER": {
+        "ANALYTICAL_CHEMISTRY": 5,
+        "MATERIAL_TESTING": 5,
+        "STATISTICAL_QUALITY_CONTROL": 4,
+        "MINITAB": 4,
+        "EXCEL": 3,
+        "GC_OPERATION": 4,
+        "HPLC_OPERATION": 4,
+        "SPECTROPHOTOMETER_USAGE": 4,
+        "DOCUMENTATION": 4,
+        "ACCURACY": 3,
+        "CRITICAL_OBSERVATION": 3
+    },
+
+    "CHEMICAL_RND_ASSISTANT": {
+        "EXPERIMENTAL_DESIGN": 5,
+        "CHEMICAL_SYNTHESIS": 5,
+        "FORMULATION_DEVELOPMENT": 4,
+        "DATA_INTERPRETATION": 4,
+        "MATLAB": 3,
+        "PYTHON": 3,
+        "ORIGIN_SOFTWARE": 3,
+        "EXCEL": 3,
+        "SCIENTIFIC_LITERATURE_REVIEW": 4,
+        "CURIOSITY": 3,
+        "CREATIVITY": 3
+    },
+
+    "PRODUCTION_ENGINEER": {
+        "MANUFACTURING_PROCESS_CONTROL": 5,
+        "LEAN_MANUFACTURING": 4,
+        "ROOT_CAUSE_ANALYSIS": 4,
+        "ERP_SYSTEMS": 4,
+        "SAP": 4,
+        "EXCEL": 3,
+        "LEADERSHIP": 3,
+        "DECISION_MAKING": 3,
+        "TIME_MANAGEMENT": 3
+    },
+
+    "MATERIALS_ENGINEER": {
+        "POLYMER_SCIENCE": 5,
+        "MATERIAL_CHARACTERIZATION": 5,
+        "STRUCTURE_PROPERTY_RELATIONSHIPS": 4,
+        "MATERIALS_STUDIO": 4,
+        "MATLAB": 3,
+        "SEM_ANALYSIS": 4,
+        "XRD_ANALYSIS": 4,
+        "RESEARCH_MINDSET": 3,
+        "INNOVATION": 3
+    },
+
+    "ENVIRONMENTAL_ENGINEER": {
+        "WASTEWATER_TREATMENT": 5,
+        "AIR_POLLUTION_CONTROL": 5,
+        "ENVIRONMENTAL_CHEMISTRY": 5,
+        "ENVIRONMENTAL_MODELING": 4,
+        "AUTOCAD": 3,
+        "EXCEL": 3,
+        "REGULATORY_AWARENESS": 4,
+        "PROBLEM_SOLVING": 3,
+        "ETHICAL_RESPONSIBILITY": 3
+    },
+
+    "SAFETY_HSE_ENGINEER": {
+        "PROCESS_SAFETY_MANAGEMENT": 5,
+        "HAZOP": 5,
+        "FMEA": 5,
+        "RISK_ASSESSMENT": 5,
+        "SAFETY_MANAGEMENT_SYSTEMS": 4,
+        "INCIDENT_REPORTING": 4,
+        "COMPLIANCE_KNOWLEDGE": 4,
+        "COMMUNICATION": 3,
+        "ALERTNESS": 3
+    },
+
+    "TECHNICAL_SALES_ENGINEER": {
+        "PRODUCT_APPLICATION_KNOWLEDGE": 5,
+        "PROCESS_ENGINEERING_BASICS": 4,
+        "COST_ESTIMATION": 4,
+        "CRM_TOOLS": 4,
+        "POWERPOINT": 3,
+        "EXCEL": 3,
+        "CUSTOMER_HANDLING": 4,
+        "PRESENTATION_SKILLS": 4,
+        "PERSUASION": 4
+    },
+
+    "PROCESS_DATA_ANALYST": {
+        "PROCESS_DATA_ANALYSIS": 5,
+        "STATISTICAL_METHODS": 5,
+        "OPTIMIZATION_TECHNIQUES": 4,
+        "PYTHON": 5,
+        "PANDAS": 4,
+        "NUMPY": 4,
+        "MATLAB": 4,
+        "POWER_BI": 4,
+        "DATA_INTERPRETATION": 4,
+        "LOGICAL_THINKING": 4
+    }
+
+}

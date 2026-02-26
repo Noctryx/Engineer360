@@ -3,46 +3,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleSelect = document.getElementById("role");
   const form = document.getElementById("onboardingForm");
 
+  const BASE_URL = "http://127.0.0.1:8000";
+
+  // ===============================
+  // LOAD ALL BRANCHES
+  // ===============================
   async function loadBranches() {
     try {
-      const response = await fetch("https://engineer360.onrender.com/branches");
+      const response = await fetch(`${BASE_URL}/branches`);
       const data = await response.json();
 
-      Object.keys(data).forEach((branch) => {
+      branchSelect.innerHTML = '<option value="">-- Choose Branch --</option>';
+
+      data.branches.forEach((branch) => {
         const option = document.createElement("option");
         option.value = branch;
-        option.textContent = branch;
+        option.textContent = branch.replaceAll("_", " ");
         branchSelect.appendChild(option);
       });
-    } catch (err) {
-      console.error("Failed to load branches:", err);
+    } catch (error) {
+      console.error("Error loading branches:", error);
+      alert("Unable to load branches. Please try again later.");
     }
   }
 
-  branchSelect.addEventListener("change", async () => {
-    const branch = branchSelect.value;
-    roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
-
-    if (!branch) return;
-
+  // ===============================
+  // LOAD ROLES BASED ON BRANCH
+  // ===============================
+  async function loadRoles(branch) {
     try {
-      const response = await fetch("https://engineer360.onrender.com/branches");
+      const response = await fetch(`${BASE_URL}/roles/${branch}`);
       const data = await response.json();
 
-      let roles = data[branch] || [];
-      roles = [...roles, "DATA_ANALYST"];
+      roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
 
-      roles.forEach((role) => {
+      data.roles.forEach((role) => {
         const option = document.createElement("option");
         option.value = role;
         option.textContent = role.replaceAll("_", " ");
         roleSelect.appendChild(option);
       });
-    } catch (err) {
-      console.error("Failed to load roles:", err);
+    } catch (error) {
+      console.error("Error loading roles:", error);
+      alert("Unable to load roles. Please try again.");
     }
+  }
+
+  // ===============================
+  // EVENT: BRANCH CHANGE
+  // ===============================
+  branchSelect.addEventListener("change", () => {
+    const selectedBranch = branchSelect.value;
+
+    roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
+
+    if (!selectedBranch) return;
+
+    loadRoles(selectedBranch);
   });
 
+  // ===============================
+  // FORM SUBMISSION
+  // ===============================
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -62,5 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "skills.html";
   });
 
+  // ===============================
+  // INITIAL LOAD
+  // ===============================
   loadBranches();
 });
