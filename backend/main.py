@@ -54,10 +54,6 @@ class UserInput(BaseModel):
     study_hours: float
 
 
-@app.get("/")
-def home():
-    return {"message": "Engineer360 Backend Running"}
-
 
 @app.get("/branches")
 def get_branches():
