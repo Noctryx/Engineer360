@@ -3,14 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleSelect = document.getElementById("role");
   const form = document.getElementById("onboardingForm");
 
-  const BASE_URL = "https://engineer360.onrender.com";
-
   // ===============================
   // LOAD ALL BRANCHES
   // ===============================
   async function loadBranches() {
     try {
-      const response = await fetch(`${BASE_URL}/branches`);
+      const response = await fetch("/branches");
       const data = await response.json();
 
       branchSelect.innerHTML = '<option value="">-- Choose Branch --</option>';
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===============================
   async function loadRoles(branch) {
     try {
-      const response = await fetch(`${BASE_URL}/roles/${branch}`);
+      const response = await fetch(`/roles/${branch}`);
       const data = await response.json();
 
       roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
@@ -49,22 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===============================
-  // EVENT: BRANCH CHANGE
-  // ===============================
   branchSelect.addEventListener("change", () => {
     const selectedBranch = branchSelect.value;
-
     roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
-
-    if (!selectedBranch) return;
-
-    loadRoles(selectedBranch);
+    if (selectedBranch) loadRoles(selectedBranch);
   });
 
-  // ===============================
-  // FORM SUBMISSION
-  // ===============================
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -81,11 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("userBranch", branch);
     localStorage.setItem("userRole", role);
 
-    window.location.href = "skills.html";
+    window.location.href = "/static/skills.html";
   });
 
-  // ===============================
-  // INITIAL LOAD
-  // ===============================
   loadBranches();
 });

@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const BASE_URL = "https://engineer360.onrender.com";
-
   loadSkills();
 
   const btn = document.getElementById("generateBtn");
@@ -11,11 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const role = localStorage.getItem("userRole");
 
       if (!role) {
-        window.location.href = "index.html";
+        window.location.href = "/";
         return;
       }
 
-      const response = await fetch(`${BASE_URL}/skills/${role}`);
+      const response = await fetch(`/skills/${role}`);
       const data = await response.json();
 
       const skills = Object.keys(data.skills || {});
@@ -64,6 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("focus", focus);
     localStorage.setItem("study", study);
 
-    window.location.href = "dashboard.html";
+    window.location.href = "/dashboard";
   }
 });
