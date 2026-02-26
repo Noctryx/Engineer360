@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function fetchAnalysis() {
   try {
-    const response = await fetch("https://engineer360.onrender.com/analyze", {
+    const response = await fetch("/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
