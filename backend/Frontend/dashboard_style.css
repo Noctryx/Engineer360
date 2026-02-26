@@ -102,17 +102,19 @@ h1 {
 /* Card Sections */
 .card {
   margin-bottom: 25px;
-  padding: 20px;
-  border-radius: 14px;
-  background: rgba(51, 65, 85, 0.4);
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(51, 65, 85, 0.35);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.35s ease;
 }
 
-.card h2 {
-  margin-bottom: 12px;
-  color: #8b5cf6;
-  font-size: 18px;
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
 }
-
 /* Progress Bar */
 .progress-container {
   width: 100%;
@@ -125,8 +127,9 @@ h1 {
   height: 10px;
   border-radius: 10px;
   width: 0%;
-  transition: width 0.5s ease;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
 }
 
 /* Burnout Text */
@@ -168,4 +171,74 @@ button {
 button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+}
+
+/* ============================= */
+/* SMOOTH UI ENHANCEMENTS */
+/* ============================= */
+
+/* Smooth everything */
+* {
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    color 0.3s ease,
+    border 0.3s ease;
+}
+
+/* Smooth page fade */
+body {
+  animation: pageEntrance 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes pageEntrance {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#6366f1, #8b5cf6);
+  border-radius: 10px;
+}
+
+/* Heading shimmer effect */
+h1 {
+  position: relative;
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Soft floating animation for container */
+.container {
+  animation: floatUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes floatUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

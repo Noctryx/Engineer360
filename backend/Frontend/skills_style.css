@@ -123,17 +123,18 @@ h1 {
   appearance: none;
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 2px solid #6366f1;
   margin-right: 10px;
   cursor: pointer;
   position: relative;
-  top: 3px;
+  transition: all 0.3s ease;
 }
 
 .skills-list input[type="checkbox"]:checked {
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
   border: none;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
 }
 /* Inputs */
 .metrics input {
@@ -196,5 +197,75 @@ button {
   to {
     transform: scale(15);
     opacity: 0;
+  }
+}
+
+/* ============================= */
+/* SMOOTH UI ENHANCEMENTS */
+/* ============================= */
+
+/* Smooth everything */
+* {
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    color 0.3s ease,
+    border 0.3s ease;
+}
+
+/* Smooth page fade */
+body {
+  animation: pageEntrance 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes pageEntrance {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#6366f1, #8b5cf6);
+  border-radius: 10px;
+}
+
+/* Heading shimmer effect */
+h1 {
+  position: relative;
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Soft floating animation for container */
+.container {
+  animation: floatUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes floatUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

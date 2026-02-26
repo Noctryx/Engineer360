@@ -137,28 +137,30 @@ body {
 
 .input-group input:focus,
 .input-group select:focus {
-  background: rgba(71, 85, 105, 0.8);
-  box-shadow: 0 0 0 2px #6366f1;
+  background: rgba(71, 85, 105, 0.85);
+  box-shadow:
+    0 0 0 2px #6366f1,
+    0 0 20px rgba(139, 92, 246, 0.4);
 }
 
 /* Modern Button */
 button {
   width: 100%;
   padding: 14px;
-  border: none;
   border-radius: 12px;
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
   color: white;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
 }
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(139, 92, 246, 0.6);
 }
 
 /* Footer */
@@ -189,5 +191,75 @@ button {
   to {
     transform: scale(15);
     opacity: 0;
+  }
+}
+
+/* ============================= */
+/* SMOOTH UI ENHANCEMENTS */
+/* ============================= */
+
+/* Smooth everything */
+* {
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    color 0.3s ease,
+    border 0.3s ease;
+}
+
+/* Smooth page fade */
+body {
+  animation: pageEntrance 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes pageEntrance {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#6366f1, #8b5cf6);
+  border-radius: 10px;
+}
+
+/* Heading shimmer effect */
+h1 {
+  position: relative;
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Soft floating animation for container */
+.container {
+  animation: floatUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes floatUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
