@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function fetchAnalysis() {
   try {
-    const response = await fetch("https://engineer360.onrender.com/analyze", {
+    const response = await fetch("http://127.0.0.1:8000/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -60,10 +60,38 @@ function renderDashboard(data) {
   progressBar.style.background =
     matchPercent >= 75 ? "#22c55e" : matchPercent >= 40 ? "#facc15" : "#ef4444";
 
-  document.getElementById("missingSkills").innerHTML =
-    `<strong>Priority Skills:</strong> ${
-      skillData.priority_skills?.join(", ") || "None 🎉"
-    }`;
+  if (skillData.missing_skills && skillData.missing_skills.length > 0) {
+    let html = "<strong>Missing Skills:</strong><ul>";
+
+    const resources = data.learning_resources || {};
+
+    skillData.missing_skills.slice(0, 4).forEach((item) => {
+      const skillName = item.skill || item; // handle both formats
+      const readable = skillName.replaceAll("_", " ");
+
+      const link = resources[skillName] || "#";
+
+      html += `
+      <li>
+        ${readable}
+        <br>
+        <a href="${link}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="learn-link">
+           ▶ Learn Now
+        </a>
+      </li>
+    `;
+    });
+
+    html += "</ul>";
+
+    document.getElementById("missingSkills").innerHTML = html;
+  } else {
+    document.getElementById("missingSkills").innerHTML =
+      "<strong>Excellent! No missing skills 🎉</strong>";
+  }
 
   const burnoutEl = document.getElementById("burnoutLevel");
   burnoutEl.innerText = `${burnoutData.burnout_risk} (${burnoutData.burnout_score}%)`;

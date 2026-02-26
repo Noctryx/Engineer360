@@ -8,7 +8,7 @@ from roles.ece_roles import ECE_ROLES
 from roles.environmental_roles import ENVIRONMENTAL_ROLES
 from roles.it_roles import IT_ROLES
 from roles.mechanical_roles import MECHANICAL_ROLES
-
+from roles.ai_roles import AI_ROLES
 
 # =========================
 # MERGE ALL ROLE DICTIONARIES
@@ -26,6 +26,7 @@ ROLES.update(ECE_ROLES)
 ROLES.update(ENVIRONMENTAL_ROLES)
 ROLES.update(IT_ROLES)
 ROLES.update(MECHANICAL_ROLES)
+ROLES.update(AI_ROLES)
 
 
 # =========================
@@ -34,6 +35,7 @@ ROLES.update(MECHANICAL_ROLES)
 
 BRANCHES = {
     "AEROSPACE": list(AEROSPACE_ROLES.keys()),
+    "AI": list(AI_ROLES.keys()),
     "BIOMEDICAL": list(BIOMEDICAL_ROLES.keys()),
     "CHEMICAL": list(CHEMICAL_ROLES.keys()),
     "CIVIL": list(CIVIL_ROLES.keys()),
