@@ -140,6 +140,10 @@ h1 {
   color: #ef4444;
 }
 
+.scroll-box {
+  max-height: 300px;
+  overflow-y: auto;
+}
 /* Recommendation */
 .recommendation-text {
   margin-top: 10px;
