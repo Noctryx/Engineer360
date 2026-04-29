@@ -1,2 +1,3 @@
-run = "pip install -r backend/requirements-replit.txt && cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+run = "cd backend && pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000"
 language = "python3"
+entrypoint = "backend/main.py"
