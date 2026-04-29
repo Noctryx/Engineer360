@@ -34,7 +34,22 @@ async function fetchAnalysis() {
     });
 
     if (!response.ok) {
-      throw new Error("Backend error: " + response.status);
+      const errorResponse = response.clone();
+      let errorMessage = "Backend error: " + response.status;
+
+      try {
+        const errorData = await response.json();
+        if (errorData && errorData.detail) {
+          errorMessage = errorData.detail;
+        }
+      } catch (_) {
+        const fallbackText = await errorResponse.text();
+        if (fallbackText) {
+          errorMessage = fallbackText;
+        }
+      }
+
+      throw new Error(errorMessage);
     }
 
     const data = await response.json();
@@ -164,5 +179,5 @@ function renderChart(matchPercent) {
 
 document.getElementById("restartBtn").addEventListener("click", () => {
   localStorage.clear();
-  window.location.href = "index.html";
+  window.location.href = "/";
 });

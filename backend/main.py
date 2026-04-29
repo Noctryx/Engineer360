@@ -1,9 +1,10 @@
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from pydantic import Field
 from typing import List
 
 from skill_data import BRANCHES,ROLES
@@ -33,10 +34,17 @@ def serve_index():
 def serve_dashboard():
     return FileResponse(FRONTEND_DIR / "dashboard.html")
 
+allowed_origins = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:10000",
+    "http://127.0.0.1:10000",
+]
+
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -44,14 +52,14 @@ app.add_middleware(
 
 
 class UserInput(BaseModel):
-    name: str
-    branch: str
-    target_role: str
-    skills: List[str]
-    sleep_hours: float
-    focus_score: int
-    stress_level: int
-    study_hours: float
+    name: str = Field(min_length=1, max_length=100)
+    branch: str = Field(min_length=1)
+    target_role: str = Field(min_length=1)
+    skills: List[str] = Field(default_factory=list)
+    sleep_hours: float = Field(ge=0, le=24)
+    focus_score: int = Field(ge=1, le=10)
+    stress_level: int = Field(ge=1, le=10)
+    study_hours: float = Field(ge=0, le=24)
 
 
 
@@ -61,21 +69,34 @@ def get_branches():
 
 @app.get("/roles/{branch}")
 def get_roles(branch: str):
-    return {"roles": BRANCHES.get(branch, [])}
+    roles = BRANCHES.get(branch)
+    if roles is None:
+        raise HTTPException(status_code=404, detail="Invalid branch selected")
+    return {"roles": roles}
 
 @app.get("/skills/{role}")
 def get_skills(role: str):
-    skills = ROLES.get(role, {})
+    skills = ROLES.get(role)
+    if skills is None:
+        raise HTTPException(status_code=404, detail="Invalid role selected")
     return {"skills": skills}
 
 @app.post("/analyze")
 def analyze(user: UserInput):
+    if user.branch not in BRANCHES:
+        raise HTTPException(status_code=400, detail="Invalid branch selected")
+
+    if user.target_role not in ROLES:
+        raise HTTPException(status_code=400, detail="Invalid role selected")
 
     # Skill Analysis
     skill_result = analyze_skill_gap(
         user.target_role,
         user.skills
     )
+
+    if skill_result.get("error"):
+        raise HTTPException(status_code=400, detail=skill_result["error"])
 
     # Burnout Analysis
     burnout_result = analyze_burnout(
@@ -106,6 +127,9 @@ def analyze(user: UserInput):
 
         db.add(record)
         db.commit()
+    except Exception:
+        db.rollback()
+        raise
     finally:
         db.close()
 

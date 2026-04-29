@@ -1,4 +1,5 @@
 from learning_resources import LEARNING_RESOURCES
+from resource_utils import build_learning_search_url, normalize_skill_name
 
 def generate_recommendation(skill_result, burnout_result):
 
@@ -21,8 +22,8 @@ def generate_recommendation(skill_result, burnout_result):
             continue
 
         resource_links[skill_name] = LEARNING_RESOURCES.get(
-            skill_name,
-            "https://www.youtube.com/results?search_query=" + skill_name.replace("_", "+")
+            normalize_skill_name(skill_name),
+            build_learning_search_url(skill_name)
         )
 
     if burnout == "HIGH":

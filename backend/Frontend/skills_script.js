@@ -14,6 +14,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const response = await fetch(`/skills/${role}`);
+      if (!response.ok) {
+        let errorMessage = "Unable to load skills.";
+
+        try {
+          const errorData = await response.json();
+          if (errorData && errorData.detail) {
+            errorMessage = errorData.detail;
+          }
+        } catch (_) {
+          const fallbackText = await response.text();
+          if (fallbackText) {
+            errorMessage = fallbackText;
+          }
+        }
+
+        throw new Error(errorMessage);
+      }
       const data = await response.json();
 
       const skills = Object.keys(data.skills || {});

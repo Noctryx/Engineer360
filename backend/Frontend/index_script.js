@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadBranches() {
     try {
       const response = await fetch("/branches");
+      if (!response.ok) {
+        throw new Error("Failed to load branches: " + response.status);
+      }
       const data = await response.json();
 
       branchSelect.innerHTML = '<option value="">-- Choose Branch --</option>';
@@ -31,6 +34,23 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadRoles(branch) {
     try {
       const response = await fetch(`/roles/${branch}`);
+      if (!response.ok) {
+        let errorMessage = "Failed to load roles: " + response.status;
+
+        try {
+          const errorData = await response.json();
+          if (errorData && errorData.detail) {
+            errorMessage = errorData.detail;
+          }
+        } catch (_) {
+          const fallbackText = await response.text();
+          if (fallbackText) {
+            errorMessage = fallbackText;
+          }
+        }
+
+        throw new Error(errorMessage);
+      }
       const data = await response.json();
 
       roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
