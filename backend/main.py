@@ -1,6 +1,7 @@
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -30,9 +31,29 @@ app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 def serve_index():
     return FileResponse(FRONTEND_DIR / "index.html")
 
+
+@app.get("/index.html")
+def serve_index_html():
+    return FileResponse(FRONTEND_DIR / "index.html")
+
 @app.get("/dashboard")
 def serve_dashboard():
     return FileResponse(FRONTEND_DIR / "dashboard.html")
+
+
+@app.get("/dashboard.html")
+def serve_dashboard_html():
+    return FileResponse(FRONTEND_DIR / "dashboard.html")
+
+
+@app.get("/skills")
+def serve_skills():
+    return FileResponse(FRONTEND_DIR / "skills.html")
+
+
+@app.get("/skills.html")
+def serve_skills_html():
+    return FileResponse(FRONTEND_DIR / "skills.html")
 
 allowed_origins = [
     "http://localhost:8000",
@@ -41,10 +62,19 @@ allowed_origins = [
     "http://127.0.0.1:10000",
 ]
 
+cors_origin_regex = r"https://.*\.github\.io|https://.*\.replit\.dev|https://.*\.replit\.app"
+
+extra_origins = os.getenv("CORS_ORIGINS", "")
+if extra_origins:
+    allowed_origins.extend(
+        origin.strip() for origin in extra_origins.split(",") if origin.strip()
+    )
+
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
+    allow_origin_regex=cors_origin_regex,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

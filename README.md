@@ -62,40 +62,50 @@ On PowerShell:
 $env:DATABASE_URL = "postgresql://user:password@host:5432/dbname"
 ```
 
-## Deployment to Render
+## Deployment
+
+The free deployment layout is:
+
+- Backend API on Replit
+- Frontend on GitHub Pages
 
 ### Step 1: Push Code to GitHub
+
 ```bash
 git add .
-git commit -m "Initial commit"
+git commit -m "Prepare free Replit deployment"
 git push origin main
 ```
 
-### Step 2: Create PostgreSQL Database on Render
-1. Go to [render.com](https://render.com) and log in
-2. Click **"New +"** → **"PostgreSQL"**
-3. Enter a name (e.g., `engineer360-db`)
-4. Click **"Create Database"**
-5. Copy the **Internal Database URL** (starts with `postgresql://`)
+### Step 2: Deploy the Backend on Replit
 
-### Step 3: Deploy Web Service
-1. Click **"New +"** → **"Web Service"**
-2. Connect your GitHub repository
-3. Set the following:
-   - **Root Directory:** `.` (project root)
-   - **Build Command:** `pip install -r backend/requirements.txt`
-   - **Start Command:** `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
-4. Click **"Advanced"** and add Environment Variable:
-   - **Key:** `DATABASE_URL`
-   - **Value:** Paste the PostgreSQL URL from Step 2
-5. Click **"Create Web Service"**
+1. Create a new Replit Python repl from this repository.
+2. Let Replit install dependencies from `backend/requirements.txt`.
+3. Use the run command in [.replit](.replit).
+4. Copy the public Replit URL after the app starts.
 
-### Step 4: Monitor Deployment
-- Check the logs in the Render dashboard
-- The app should be live within 2-5 minutes
-- Test it: `https://your-service.render.com/branches`
+### Step 3: Deploy the Frontend on GitHub Pages
 
-**Note:** The free tier on Render spins down after 15 minutes of inactivity. Upgrade to a paid plan for production use.
+1. In GitHub, open the repository settings.
+2. Go to **Pages**.
+3. Set the source to the `docs/` folder on the default branch.
+4. Wait for GitHub Pages to publish the site.
+
+### Step 4: Connect the Frontend to the Backend
+
+1. Open the GitHub Pages site in your browser.
+2. When prompted, enter the Replit backend URL once.
+3. The app stores that backend URL in browser localStorage for later visits.
+
+### Step 5: Verify the API
+
+Test the backend directly with:
+
+```text
+https://your-replit-app.replit.app/branches
+```
+
+The frontend pages are mirrored in `docs/` for GitHub Pages, and the backend still serves the same app for local development and Replit.
 
 ## Verification
 
