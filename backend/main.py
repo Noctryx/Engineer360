@@ -4,11 +4,10 @@ from pathlib import Path
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from pydantic import Field
+from pydantic import BaseModel, Field
 from typing import List
 
-from skill_data import BRANCHES,ROLES
+from skill_data import BRANCHES, ROLES
 from skill_engine import analyze_skill_gap
 from burnout_engine import analyze_burnout
 from recommendation_engine import generate_recommendation
@@ -20,12 +19,41 @@ import json
 # Create DB tables
 Base.metadata.create_all(bind=engine)
 
+# Initialize app
 app = FastAPI()
+
+# ---------------------- CORS FIX ---------------------- #
+allowed_origins = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:10000",
+    "http://127.0.0.1:10000",
+    "https://noctryx.github.io"
+]
+
+cors_origin_regex = r"https://.*\.github\.io$|https://.*\.replit\.dev$|https://.*\.replit\.app$"
+
+extra_origins = os.getenv("CORS_ORIGINS", "")
+if extra_origins:
+    allowed_origins.extend(
+        origin.strip() for origin in extra_origins.split(",") if origin.strip()
+    )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_origin_regex=cors_origin_regex,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# ------------------------------------------------------ #
 
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR / "Frontend"
 
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
 
 @app.get("/")
 def serve_index():
@@ -35,6 +63,7 @@ def serve_index():
 @app.get("/index.html")
 def serve_index_html():
     return FileResponse(FRONTEND_DIR / "index.html")
+
 
 @app.get("/dashboard")
 def serve_dashboard():
@@ -55,31 +84,6 @@ def serve_skills():
 def serve_skills_html():
     return FileResponse(FRONTEND_DIR / "skills.html")
 
-allowed_origins = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://localhost:10000",
-    "http://127.0.0.1:10000",
-]
-
-cors_origin_regex = r"https://.*\.github\.io|https://.*\.replit\.dev|https://.*\.replit\.app"
-
-extra_origins = os.getenv("CORS_ORIGINS", "")
-if extra_origins:
-    allowed_origins.extend(
-        origin.strip() for origin in extra_origins.split(",") if origin.strip()
-    )
-
-# Enable CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_origin_regex=cors_origin_regex,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 class UserInput(BaseModel):
     name: str = Field(min_length=1, max_length=100)
@@ -92,10 +96,10 @@ class UserInput(BaseModel):
     study_hours: float = Field(ge=0, le=24)
 
 
-
 @app.get("/branches")
 def get_branches():
     return {"branches": list(BRANCHES.keys())}
+
 
 @app.get("/roles/{branch}")
 def get_roles(branch: str):
@@ -104,12 +108,14 @@ def get_roles(branch: str):
         raise HTTPException(status_code=404, detail="Invalid branch selected")
     return {"roles": roles}
 
+
 @app.get("/skills/{role}")
 def get_skills(role: str):
     skills = ROLES.get(role)
     if skills is None:
         raise HTTPException(status_code=404, detail="Invalid role selected")
     return {"skills": skills}
+
 
 @app.post("/analyze")
 def analyze(user: UserInput):
@@ -120,10 +126,7 @@ def analyze(user: UserInput):
         raise HTTPException(status_code=400, detail="Invalid role selected")
 
     # Skill Analysis
-    skill_result = analyze_skill_gap(
-        user.target_role,
-        user.skills
-    )
+    skill_result = analyze_skill_gap(user.target_role, user.skills)
 
     if skill_result.get("error"):
         raise HTTPException(status_code=400, detail=skill_result["error"])
@@ -137,12 +140,9 @@ def analyze(user: UserInput):
     )
 
     # Recommendation
-    recommendation = generate_recommendation(
-        skill_result,
-        burnout_result
-    )
+    recommendation = generate_recommendation(skill_result, burnout_result)
 
-    # Save to DB safely
+    # Save to DB
     db = SessionLocal()
     try:
         record = StudentRecord(
@@ -169,6 +169,7 @@ def analyze(user: UserInput):
         "final_recommendation": recommendation["message"],
         "learning_resources": recommendation["resources"]
     }
+
 
 @app.get("/records")
 def get_records():
