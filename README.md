@@ -62,12 +62,40 @@ On PowerShell:
 $env:DATABASE_URL = "postgresql://user:password@host:5432/dbname"
 ```
 
-## Deployment
+## Deployment to Render
 
-The Render config is in `backend/render.yaml`.
+### Step 1: Push Code to GitHub
+```bash
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
 
-- Build command: `pip install -r requirements.txt`
-- Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+### Step 2: Create PostgreSQL Database on Render
+1. Go to [render.com](https://render.com) and log in
+2. Click **"New +"** → **"PostgreSQL"**
+3. Enter a name (e.g., `engineer360-db`)
+4. Click **"Create Database"**
+5. Copy the **Internal Database URL** (starts with `postgresql://`)
+
+### Step 3: Deploy Web Service
+1. Click **"New +"** → **"Web Service"**
+2. Connect your GitHub repository
+3. Set the following:
+   - **Root Directory:** `.` (project root)
+   - **Build Command:** `pip install -r backend/requirements.txt`
+   - **Start Command:** `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
+4. Click **"Advanced"** and add Environment Variable:
+   - **Key:** `DATABASE_URL`
+   - **Value:** Paste the PostgreSQL URL from Step 2
+5. Click **"Create Web Service"**
+
+### Step 4: Monitor Deployment
+- Check the logs in the Render dashboard
+- The app should be live within 2-5 minutes
+- Test it: `https://your-service.render.com/branches`
+
+**Note:** The free tier on Render spins down after 15 minutes of inactivity. Upgrade to a paid plan for production use.
 
 ## Verification
 
