@@ -62,6 +62,26 @@ On PowerShell:
 $env:DATABASE_URL = "postgresql://user:password@host:5432/dbname"
 ```
 
+## Quick Deployment Checklist
+
+**For Replit Backend + GitHub Pages Frontend:**
+
+1. **Create Replit repl** → https://replit.com/~
+   - Import from GitHub: `https://github.com/Noctryx/Engineer360`
+   - Replit runs `.replit` and installs `backend/requirements.txt`
+   - Copy the public Replit URL (e.g., `https://your-replit-app.replit.app`)
+
+2. **Enable GitHub Pages** → https://github.com/Noctryx/Engineer360/settings/pages
+   - Source: Deploy from branch → `main` / `docs/` folder
+   - Wait ~2 min for publication
+
+3. **Connect Frontend to Backend** → Open GitHub Pages site with:
+   ```
+   https://<your-github-username>.github.io/Engineer360/?api=https://your-replit-app.replit.app
+   ```
+   - When prompted, confirm the backend URL (stored in localStorage)
+   - Refresh the page and the app should work
+
 ## Deployment
 
 The free deployment layout is:
